@@ -1,21 +1,18 @@
 class Solution {
 public:
     vector<int> rearrangeArray(vector<int>& nums) {
-        // BruteForce Approach 
-        vector<int> pos;
-        vector<int> neg;
-        for (int i=0; i<nums.size();i++) {
-            if(nums.at(i) < 0) {
-                neg.push_back(nums.at(i));
+        // optimal approach
+        vector<int> result(nums.size());
+        int posi = 0 , negi = 1;
+        for (int i=0;i<nums.size();i++) {
+            if (nums.at(i) > 0) {
+                result.at(posi) = nums.at(i);
+                posi+=2;
             } else {
-                pos.push_back(nums.at(i));
+                result.at(negi) = nums.at(i);
+                negi+=2;
             }
         }
-        // merging back to the original array alternately by simultaneously traversing the both pos & neg array
-        for(int i=0;i<nums.size()/2;i++) {
-            nums.at(2*i) = pos.at(i);
-            nums.at(2*i+1) = neg.at(i);
-        }
-        return nums;
+        return result;
     }
 };
