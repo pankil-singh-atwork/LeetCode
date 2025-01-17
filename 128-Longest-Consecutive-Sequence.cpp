@@ -1,21 +1,26 @@
 class Solution {
 public:
     int longestConsecutive(vector<int>& nums) {
-        // using ordered set
-        if (nums.empty()) return 0;
-        set<int> res(nums.begin() , nums.end());
+        // using brute-force approach
+        if (nums.empty())
+            return 0;
+        // initalizing the set
+        unordered_set<int> res(nums.begin(), nums.end());
         int longest = 0;
-        int lcs = 1;
-        for (auto it = next(res.begin()); it != res.end(); ++it) {
-            auto prevIt = prev(it);
-            if(*it == *prevIt + 1) ++lcs;
-            else {
-                // update the longest
-                longest = max(longest , lcs);
-                lcs = 1; 
+        for (auto it = res.begin(); it != res.end(); ++it) {
+            // checking for only starting element of the sequence
+            if (res.find(*it - 1) == res.end()) {
+                int count = 1;
+                // checking for consecutive next element
+                int next = 1;
+                while (res.find(*it + next) != res.end()) {
+                    ++count;
+                    ++next;
+                }
+                  // updating the max_count
+                longest = max(count, longest); 
             }
         }
-        longest = max(longest , lcs);
         return longest;
     }
 };
