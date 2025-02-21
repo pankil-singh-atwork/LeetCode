@@ -1,18 +1,18 @@
 class Solution {
 public:
     int maxProduct(vector<int>& nums) {
+        // Optimal Solution
+        int n = nums.size();
         int maxProduct = INT_MIN;
         int prefixProduct = 1;
         int suffixProduct = 1;
-        for (int i=0;i<nums.size();++i) {
+        for (int i=0;i<n;++i) {
             prefixProduct *= nums[i];
+            suffixProduct *= nums[n-(i+1)];
             maxProduct = max(maxProduct , prefixProduct);
-            if (nums[i] == 0) prefixProduct = 1;
-        }
-        for (int j=nums.size()-1; j>=0; --j) {
-            suffixProduct *= nums[j];
             maxProduct = max(maxProduct , suffixProduct);
-            if (nums[j] == 0) suffixProduct = 1;
+            if (nums[i] == 0) prefixProduct = 1;
+            if (nums[n-(i+1)] == 0) suffixProduct = 1;
         }
         return maxProduct;
     } 
