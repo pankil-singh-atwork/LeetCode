@@ -8,6 +8,7 @@ public:
         }
         return sum;
     }
+
     int smallestDivisor(vector<int>& nums, int threshold) {
         int max = *max_element(nums.begin() , nums.end());
         // divisor range
@@ -17,8 +18,10 @@ public:
             int mid = (low + high) / 2;
             int sum = sumDivisor(nums , mid);
             if (sum <= threshold) {
+                // look for smaller divisor to get the larger value 
                 high = mid - 1;
             } else {
+                // look for higher divisor -> to get the minimum value
                 low = mid +1;
             }
         }
